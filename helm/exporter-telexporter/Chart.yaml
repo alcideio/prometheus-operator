@@ -1,0 +1,8 @@
+apiVersion: v1
+description: Telexporter exporter and prometheus rules chart
+name: exporter-telexporter
+version: 1.0
+maintainers:
+  - name: Alcide devops
+    email: devops@alcide.io
+

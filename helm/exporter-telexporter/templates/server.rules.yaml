@@ -1,0 +1,232 @@
+{{ define "server.rules.yaml.tpl" }}
+groups:
+- name: server.rules
+  rules:
+
+  - alert: InventoryProcessorErrorsCount
+    expr: 'increase({__name__=~".+InventoryEventsProcessorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Inventory Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Inventory Processor errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: InventoryProcessorNoEvents
+    expr: '{__name__=~".+InventoryEventsProcessorImpl_eventsRate", type="rate5"} == 0'
+    for: 10m
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "Inventory Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"
+      summary: Inventory Processor no events
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: ActivityProcessorErrorsCount
+    expr: 'increase({__name__=~".+ActivityEventsProcessorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Activity Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: ActivityProcessor errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: ActivityProcessorNoEvents
+    expr: '{__name__=~".+ActivityEventsProcessorImpl_eventsRate", type="rate5"} == 0'
+    for: 10m
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "Activity Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"
+      summary: Activity Processor - no events
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AlertProcessorErrorsCount
+    expr: 'increase({__name__=~".+AlertLogEventsProcessorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Alert Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Alert Processor errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AlertLevelProcessorErrorsCount
+    expr: 'increase({__name__=~".+EntitiesAlertLevelEventsProcessorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Alert Level Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Alert Level Processor errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: SecurityFeaturesErrorsCount
+    expr: 'increase({__name__=~".+SecurityFeaturesProcessorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Security Features Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Security Features Processor errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: SecurityFeaturesProcessorNoEvents
+    expr: '{__name__=~".+SecurityFeaturesProcessorImpl_eventsRate", type="rate5"} == 0'
+    for: 10m
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "Security Features Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"
+      summary: Security Features Processor - no events
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: GraphQLErrorsCount
+    expr: 'increase({__name__=~".+GraphQLExecutorImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "GraphQL {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: GraphQL errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: GraphQLMaxLatency
+    expr: '{__name__=~".+GraphQLExecutorImpl_requestsRate", type="max"} > 10000'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "GraphQL {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has recent request processing latency of ({{`{{ $value }}`}}) MSec - {{`{{ $labels.__name__ }}`}}"
+      summary: GraphQL request latency
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: WebSocketErrorsCount
+    expr: 'increase({__name__=~".+NotificationTaskImpl_webSocket_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "WebSocket {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: WebSocket errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: CassandraErrorsCount
+    expr: 'increase({__name__=~".+DbStoreImpl_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Cassandra {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Cassandra errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: IgniteErrorsRateIncrease
+    expr: 'increase({__name__=~".+ignite.+Appender_error", type="count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: server
+    annotations:
+      description: "Ignite {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}})-per-second recent errors rate - {{`{{ $labels.__name__ }}`}}"
+      summary: Ignite errors rate
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: IgniteNoLogs
+    expr: '{__name__=~".+ignite.+Appender_info", type="rate5"} == 0'
+    for: 10m
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "Ignite {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} is inactive in last 5 minutes - {{`{{ $labels.__name__ }}`}}"
+      summary: Ignite inactive
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: JVMMemoryHeapUsage
+    expr: '{__name__=~".+JVM_Memory_heap_usage"} > 0.95'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "Process {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has memory heap usage of ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: Memory heap almost exhausted
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: LoggedErrors
+    expr: 'increase({__name__=~".+_Appender_error"}[5m]) > 3'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "{{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) logged errors in recent minutes - {{`{{ $labels.__name__ }}`}}"
+      summary: Logged errors count
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: KafkaInventoryLag
+    expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 2000'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
+      summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaComponentsActivityLag
+    expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 2000'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
+      summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaNetActivityLag
+    expr: 'kafka_consumergroup_lag{topic="netactivity",consumergroup!~".*e2e.*"} > 30000'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
+      summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaComponentsActivityLagRate
+    expr: 'irate(kafka_consumergroup_lag{topic="ComponentsActivity",consumergroup!~".*e2e.*"}[5m]) > 20'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+      summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaNetActivityLagRate
+    expr: 'irate(kafka_consumergroup_lag{topic="NetActivity",consumergroup!~".*e2e.*"}[5m]) > 20'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+      summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaComponentsActivityLagRate
+    expr: 'irate(kafka_consumergroup_lag{topic="ComponentsActivity",consumergroup!~".*e2e.*"}[5m]) > 20'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+      summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+  - alert: KafkaUnderReplacatedPartitions
+    expr: 'kafka_cluster_partition_underreplicated{topic!~"__consumer_offsets"} > 0'
+    labels:
+      severity: warning
+      component: server
+    annotations:
+      description: "kafka has lost a member in ISR at topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}}"
+      summary: "Broker was removed from ISR at topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}}"
+{{ end }}
