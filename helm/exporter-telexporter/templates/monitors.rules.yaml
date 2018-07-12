@@ -1,0 +1,81 @@
+{{ define "monitors.rules.yaml.tpl" }}
+groups:
+- name: kubemon.rules
+  rules:
+
+  - alert: K8SMonitorConsoleErrorTrend
+    expr: 'increase({source="K8SMonitor",__name__=~".*_trace_.*_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "K8SMonitor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has console errors ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: "Kubernetes monitor ({{`{{ $labels.environment }}`}}) console errors"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AWSMonitorConsoleErrorTrend
+    expr: 'increase({source="AWSMonitor",__name__=~".*_trace_.*_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "AWSMonitor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has console errors ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: "AWSMonitor monitor ({{`{{ $labels.environment }}`}}) console errors"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: cloudwatchdogMonitorApiErrorTrend
+    expr: 'increase({source="cloudwatchdog",__name__=~".+cloudwatchdog_cloudprovider_.*_api_request_errors"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "cloudwatchdog {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has API errors ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: "cloudwatchdog monitor ({{`{{ $labels.environment }}`}}) API errors"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: cloudwatchdogMonitorUpstreamErrorTrend
+    expr: 'increase({source="cloudwatchdog",__name__=~".+cloudwatchdog_.*._.*._error", type="rate5"}[5m]) > 0.01'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "cloudwatchdog {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has upstream errors rate({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: "cloudwatchdog monitor ({{`{{ $labels.environment }}`}}) upstream errors"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: MonitorTopologyRetryError
+    expr: 'increase({__name__=~".+mon_.*.topologyRetry_retry_error",type="count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "Monitor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has topology retry errors - {{`{{ $labels.__name__ }}`}}"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: MonitorTopologyRetryFailure
+    expr: 'increase({__name__=~".+mon_.*.topologyRetry_retry_failed",type="count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "Monitor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has topology retry failures - {{`{{ $labels.__name__ }}`}}"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: CloudWatchDogTopologyRetryError
+    expr: 'increase({__name__=~".+cloudwatchdog.*.topologyRetry_retry_error",type="count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "CloudWatchDog {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has topology retry errors - {{`{{ $labels.__name__ }}`}}"
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: CloudWatchDogTopologyRetryFailure
+    expr: 'increase({__name__=~".+cloudwatchdog.*.topologyRetry_retry_failed",type="count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: monitor
+    annotations:
+      description: "CloudWatchDog {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has topology retry failures - {{`{{ $labels.__name__ }}`}}"
+      env: "{{`{{ $labels.environment }}`}}"
+{{ end }}

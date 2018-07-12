@@ -1,21 +1,139 @@
 ## Alertmanager configuration directives
 ## Ref: https://prometheus.io/docs/alerting/configuration/
 ##
-config:
+internalConfig:
   global:
     resolve_timeout: 5m
+
   route:
-    group_by: ['job']
-    group_wait: 30s
-    group_interval: 5m
-    repeat_interval: 12h
-    receiver: 'null'
-    routes:
-    - match:
-        alertname: DeadMansSwitch
-      receiver: 'null'
+   group_by: ['alertname']
+   group_wait: 30s
+   group_interval: 5m
+   repeat_interval: 60m
+
+   # If an alert isn't caught by a route, send it to #infra_alerts channel in slack.
+   receiver: slack_infra_alerts
+
+   routes:
+    - match_re:
+        component: server
+      receiver: slack_server_alerts
+
+    - match_re:
+        component: agent
+      receiver: slack_agent_alerts
+
+    - match_re:
+        component: monitor
+      receiver: slack_monitor_alerts
+
+    - match_re:
+        severity: none
+      receiver: blackhole
+
   receivers:
-  - name: 'null'
+
+  # Throw here every alert you want to show up in alertmanager that shouldn't be sent to slack
+  - name: blackhole
+
+  - name: slack_server_alerts
+    slack_configs:
+    - api_url: SLACK_SERVER_ALERTS_URL
+      channel: '#server_alerts'
+      send_resolved: true
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+      text: >-
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Description:* {{ .Annotations.description }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+
+  - name: slack_agent_alerts
+    slack_configs:
+    - api_url: SLACK_AGENT_ALERTS_URL
+      channel: '#agent_alerts'
+      send_resolved: true
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+      text: >-
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Description:* {{ .Annotations.description }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+
+  - name: slack_monitor_alerts
+    slack_configs:
+    - api_url: SLACK_MONITOR_ALERTS_URL
+      channel: '#monitor_alerts'
+      send_resolved: true
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+      text: >-
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Description:* {{ .Annotations.description }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+
+  - name: slack_infra_alerts
+    slack_configs:
+    - api_url: SLACK_INFRA_ALERTS_URL
+      channel: '#infra_alerts'
+      send_resolved: true
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+      text: >-
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Description:* {{ .Annotations.description }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+
+productionConfig:
+  global:
+    resolve_timeout: 5m
+
+  route:
+   group_by: ['alertname']
+   group_wait: 30s
+   group_interval: 5m
+   repeat_interval: 60m
+
+   receiver: slack_production_alerts
+
+   routes:
+    - match_re:
+        severity: none
+      receiver: blackhole
+
+  receivers:
+
+  # Throw here every alert you want to show up in alertmanager that shouldn't be sent to slack
+  - name: blackhole
+
+  - name: slack_production_alerts
+    slack_configs:
+    - api_url: SLACK_PRODUCTION_ALERTS_URL
+      channel: '#production_alerts'
+      send_resolved: true
+      title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+      text: >-
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Description:* {{ .Annotations.description }}
+          *Details:*
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+          {{ end }}
+        {{ end }}
+
+
 
 ## Alertmanager template files to include
 #
@@ -70,13 +188,15 @@ prometheusLabelValue: ""
 ingress:
   ## If true, Alertmanager Ingress will be created
   ##
-  enabled: false
+  enabled: true
 
   ## Annotations for Alertmanager Ingress
   ##
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    "kubernetes.io/ingress.class": "nginx"
+    "nginx.ingress.kubernetes.io/auth-signin": "https://$host/oauth2/start"
+    "nginx.ingress.kubernetes.io/auth-url": "https://$host/oauth2/auth"
+    "nginx.ingress.kubernetes.io/rewrite-target": "/"
 
   ## Labels to be added to the Ingress
   ##
@@ -183,15 +303,20 @@ global:
 ## Alertmanager StorageSpec for persistent data
 ## Ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/storage.md
 ##
-storageSpec: {}
-#  volumeClaimTemplate:
-#    spec:
-#      storageClassName: gluster
-#      accessModes: ["ReadWriteOnce"]
-#      resources:
-#        requests:
-#          storage: 50Gi
-#    selector: {}
+storageSpec:
+  volumeClaimTemplate:
+    spec:
+      storageClassName: managed-premium
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 100Gi
+    selector: {}
 
 # default rules are in templates/alertmanager.rules.yaml
 # prometheusRules: {}
+
+routePrefix: /alertmanager
+
+# Alertmanager config will be determined based on the env type ["internal", "production"]
+envType:

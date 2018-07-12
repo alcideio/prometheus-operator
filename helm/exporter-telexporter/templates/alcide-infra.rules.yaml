@@ -1,0 +1,29 @@
+#TODO: @ori @eladi remove fluentd from expression below once its not frequently consuming high memory
+{{ define "alcide-infra.rules.yaml.tpl" }}
+groups:
+- name: alcide-infra.rules
+  rules:
+  - alert: AlcidePodRestart
+    expr: increase(kube_pod_container_status_restarts{namespace="alcide",container!="e2e",container!="agent-stability-test-tcps", container!="nodelet"}[5m]) > 0
+    labels:
+      severity: error
+    annotations:
+      description: Alcide entity {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod_name }}`}} was restarted {{`{{ $value }}`}}
+        times within the last 5 minutes
+  - alert: AlcidePodHighMemory
+    expr: sum by (pod_name) (container_memory_usage_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|POD"} / container_spec_memory_limit_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|POD"} * 100) !=+inf > 95
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      description: Alcide entity {{`{{ $labels.pod_name }}`}} is consuming {{`{{ $value }}`}} percent of its allocated memory for more than 10 minutes
+
+  - alert: PvcDiskRunningFullIn6Hours
+    expr: predict_linear(kubelet_volume_stats_available_bytes[90m], 3600 * 6) < 0
+    for: 30m
+    labels:
+      severity: critical
+    annotations:
+      description: Persistent Volume Claim {{`{{ $labels.persistentvolumeclaim }}`}} on node {{`{{ $labels.instance }}`}} is running
+        full within the next 12 hours
+{{ end }}

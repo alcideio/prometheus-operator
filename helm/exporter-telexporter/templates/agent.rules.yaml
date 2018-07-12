@@ -1,0 +1,54 @@
+{{ define "agent.rules.yaml.tpl" }}
+groups:
+- name: agent.rules
+  rules:
+
+  - alert: AgentPodRestart
+    expr: increase(kube_pod_container_status_restarts{namespace="alcide",container="nodelet"}[5m]) > 0
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: Agent nodelet {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}}
+        times within the last 5 minutes
+
+  - alert: AgentDaemonTraceAttachmentErrorCount
+    expr: 'increase({__name__=~".*_agent_agent_daemon_trace_attachment_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} has {{`{{ $value }}`}} failed attachments"
+      summary: Agent attachment error
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AgentConsoleErrorTrend
+    expr: 'increase({__name__=~".*_agent_.*._trace_.*._error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has console errors ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent console errors
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AgentDaemonTraceTopologyErrorCount
+    expr: 'increase({__name__=~".*_agent_daemon_trace_topology_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} has {{`{{ $value }}`}} topology errors"
+      summary: Agent topology error
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AgentDaemonTraceWorkloadMonitorErrorCount
+    expr: 'increase({__name__=~".*agent_daemon_trace_workloadmon_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} has {{`{{ $value }}`}} console errors coming from WorkloadMonitor (engine_monitor)"
+      summary: Agent workload monitor error
+      env: "{{`{{ $labels.environment }}`}}"
+{{ end }}
