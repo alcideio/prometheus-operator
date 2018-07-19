@@ -357,60 +357,101 @@
         ]
       },
       {
-        "columns": [],
+        "aliasColors": {
+          "# of tests failed": "#bf1b00",
+          "{cluster=\"system_cluster\",endpoint=\"http\",environment=\"stg\",exported_instance=\"e2e-on-stg\",exported_job=\"e2e-on-stg\",instance=\"10.44.4.234:9091\",job=\"e2e-metricsgw\",namespace=\"alcide\",pod=\"e2e-metricsgw-547b7ffbc9-98l6z\",service=\"e2e-metricsgw\"}": "#bf1b00"
+        },
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
         "datasource": "${DS_PROMETHEUS}",
-        "fontSize": "100%",
+        "fill": 1,
         "gridPos": {
-          "h": 7,
-          "w": 24,
+          "h": 9,
+          "w": 12,
           "x": 0,
           "y": 14
         },
-        "id": 7,
-        "links": [],
-        "pageSize": null,
-        "scroll": true,
-        "showHeader": true,
-        "sort": {
-          "col": 0,
-          "desc": true
+        "id": 9,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
         },
-        "styles": [
-          {
-            "alias": "Time",
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "link": false,
-            "pattern": "Time",
-            "type": "date"
-          },
-          {
-            "alias": "",
-            "colorMode": null,
-            "colors": [
-              "rgba(245, 54, 54, 0.9)",
-              "rgba(237, 129, 40, 0.89)",
-              "rgba(50, 172, 45, 0.97)"
-            ],
-            "decimals": 2,
-            "pattern": "/.*/",
-            "thresholds": [],
-            "type": "number",
-            "unit": "short"
-          }
-        ],
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
         "targets": [
           {
-            "expr": "e2e_pass_percent",
-            "format": "table",
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 60
+            "expr": "e2e_total_specs_pass",
+            "format": "time_series",
+            "intervalFactor": 1,
+            "legendFormat": "# of tests passed",
+            "refId": "A"
+          },
+          {
+            "expr": "(e2e_total_specs_run - e2e_total_specs_pass)",
+            "format": "time_series",
+            "intervalFactor": 1,
+            "legendFormat": "# of tests failed",
+            "refId": "B"
           }
         ],
-        "title": "E2E Labels",
-        "transform": "table",
-        "type": "table"
+        "thresholds": [],
+        "timeFrom": "2d",
+        "timeShift": null,
+        "title": "E2E pass rate - 2d",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
       }
+    ],
+    "refresh": "60s",
+    "schemaVersion": 16,
+    "style": "dark",
+    "tags": [
+      "Tests"
     ],
     "refresh": "60s",
     "schemaVersion": 16,
