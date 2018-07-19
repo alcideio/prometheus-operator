@@ -358,8 +358,7 @@
       },
       {
         "aliasColors": {
-          "# of tests failed": "#bf1b00",
-          "{cluster=\"system_cluster\",endpoint=\"http\",environment=\"stg\",exported_instance=\"e2e-on-stg\",exported_job=\"e2e-on-stg\",instance=\"10.44.4.234:9091\",job=\"e2e-metricsgw\",namespace=\"alcide\",pod=\"e2e-metricsgw-547b7ffbc9-98l6z\",service=\"e2e-metricsgw\"}": "#bf1b00"
+          "# of tests failed": "#bf1b00"
         },
         "bars": true,
         "dashLength": 10,
@@ -492,7 +491,7 @@
       ]
     },
     "timezone": "",
-    "title": "E2E Tests",
+    "title": "E2E_TESTS",
     "uid": "dbi6c0giz",
     "version": 4
   },
