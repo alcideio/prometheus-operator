@@ -1,4 +1,3 @@
-#TODO: @ori @eladi remove fluentd from expression below once its not frequently consuming high memory
 {{ define "alcide-infra.rules.yaml.tpl" }}
 groups:
 - name: alcide-infra.rules
@@ -11,7 +10,7 @@ groups:
       description: Alcide entity {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod_name }}`}} was restarted {{`{{ $value }}`}}
         times within the last 5 minutes
   - alert: AlcidePodHighMemory
-    expr: sum by (pod_name) (container_memory_usage_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|.*dcvisor.*|POD"} / container_spec_memory_limit_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|POD"} * 100) !=+inf > 95
+    expr: sum by (pod_name) (container_memory_usage_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|.*dcvisor.*|POD|activity-processor|alert-processor|inventory-processor"} / container_spec_memory_limit_bytes{namespace="alcide",container_name!~".*kafka.*|.*cassandra.*|.*fluentd.*|POD|activity-processor|alert-processor|inventory-processor"} * 100) !=+inf > 95
     for: 10m
     labels:
       severity: critical
