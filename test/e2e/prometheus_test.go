@@ -22,6 +22,7 @@ import (
 	"log"
 	"reflect"
 	"sort"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -333,6 +334,8 @@ func TestPrometheusAdditionalScrapeConfig(t *testing.T) {
 }
 
 func TestPrometheusAdditionalAlertManagerConfig(t *testing.T) {
+	t.Parallel()
+
 	ctx := framework.NewTestCtx(t)
 	defer ctx.Cleanup(t)
 	ns := ctx.CreateNamespace(t, framework.KubeClient)
@@ -447,10 +450,10 @@ func TestPrometheusReloadRules(t *testing.T) {
 	}
 
 	ruleFile.Spec.Groups = []monitoringv1.RuleGroup{
-		monitoringv1.RuleGroup{
+		{
 			Name: "my-alerting-group",
 			Rules: []monitoringv1.Rule{
-				monitoringv1.Rule{
+				{
 					Alert: secondAlertName,
 					Expr:  "vector(1)",
 				},
@@ -468,108 +471,7 @@ func TestPrometheusReloadRules(t *testing.T) {
 	}
 }
 
-// With Prometheus Operator v0.20.0 the 'RuleSelector' field in the Prometheus
-// CRD Spec is deprecated. We need to ensure to still support it until the field
-// is removed. Any value in 'RuleSelector' should just be copied to the new
-// field 'RuleFileSelector'.
-func TestPrometheusDeprecatedRuleSelectorField(t *testing.T) {
-	t.Parallel()
-
-	ctx := framework.NewTestCtx(t)
-	defer ctx.Cleanup(t)
-	ns := ctx.CreateNamespace(t, framework.KubeClient)
-	ctx.SetupPrometheusRBAC(t, ns, framework.KubeClient)
-
-	name := "test"
-	firtAlertName := "firstAlert"
-
-	_, err := framework.MakeAndCreateFiringRule(ns, name, firtAlertName)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	p := framework.MakeBasicPrometheus(ns, name, name, 1)
-	p.Spec.EvaluationInterval = "1s"
-	p.Spec.RuleSelector = &metav1.LabelSelector{
-		MatchLabels: map[string]string{
-			"role": "rulefile",
-		},
-	}
-	if err := framework.CreatePrometheusAndWaitUntilReady(ns, p); err != nil {
-		t.Fatal(err)
-	}
-
-	pSVC := framework.MakePrometheusService(p.Name, "not-relevant", v1.ServiceTypeClusterIP)
-	if finalizerFn, err := testFramework.CreateServiceAndWaitUntilReady(framework.KubeClient, ns, pSVC); err != nil {
-		t.Fatal(errors.Wrap(err, "creating Prometheus service failed"))
-	} else {
-		ctx.AddFinalizerFn(finalizerFn)
-	}
-
-	err = framework.WaitForPrometheusFiringAlert(p.Namespace, pSVC.Name, firtAlertName)
-	if err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestPrometheusRuleConfigMapMigration(t *testing.T) {
-	t.Parallel()
-
-	ctx := framework.NewTestCtx(t)
-	defer ctx.Cleanup(t)
-	ns := ctx.CreateNamespace(t, framework.KubeClient)
-	ctx.SetupPrometheusRBAC(t, ns, framework.KubeClient)
-
-	name := "my-prometheus"
-	ruleFileName := "my-alerting-rule-file"
-	alertName := "ExampleAlert"
-
-	cm := v1.ConfigMap{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "old-rule-file",
-			Labels: map[string]string{
-				"role": "rulefile",
-			},
-		},
-		Data: map[string]string{
-			ruleFileName: fmt.Sprintf(`
-groups:
-- name: ./alerting.rules
-  rules:
-  - alert: %v
-    expr: vector(1)
-`, alertName),
-		},
-	}
-	framework.KubeClient.CoreV1().ConfigMaps(ns).Create(&cm)
-
-	p := framework.MakeBasicPrometheus(ns, name, name, 1)
-	p.Spec.RuleSelector = &metav1.LabelSelector{
-		MatchLabels: map[string]string{
-			"role": "rulefile",
-		},
-	}
-	if err := framework.CreatePrometheusAndWaitUntilReady(ns, p); err != nil {
-		t.Fatal(err)
-	}
-
-	pSVC := framework.MakePrometheusService(p.Name, "not-relevant", v1.ServiceTypeClusterIP)
-	if finalizerFn, err := testFramework.CreateServiceAndWaitUntilReady(framework.KubeClient, ns, pSVC); err != nil {
-		t.Fatal(errors.Wrap(err, "creating Prometheus service failed"))
-	} else {
-		ctx.AddFinalizerFn(finalizerFn)
-	}
-
-	if err := framework.WaitForRule(ns, cm.Name+"-"+ruleFileName); err != nil {
-		t.Fatalf("waiting for rule config map to be converted to rule file crd: %v", err)
-	}
-
-	if err := framework.WaitForPrometheusFiringAlert(ns, pSVC.Name, alertName); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestPrometheusMultipleRuleFilesSameNS(t *testing.T) {
+func TestPrometheusMultiplePrometheusRulesSameNS(t *testing.T) {
 	t.Parallel()
 
 	ctx := framework.NewTestCtx(t)
@@ -608,7 +510,7 @@ func TestPrometheusMultipleRuleFilesSameNS(t *testing.T) {
 	}
 }
 
-func TestPrometheusMultipleRuleFilesDifferentNS(t *testing.T) {
+func TestPrometheusMultiplePrometheusRulesDifferentNS(t *testing.T) {
 	t.Parallel()
 
 	ctx := framework.NewTestCtx(t)
@@ -627,7 +529,10 @@ func TestPrometheusMultipleRuleFilesDifferentNS(t *testing.T) {
 	ruleFilesNamespaceSelector := map[string]string{"prometheus": rootNS}
 
 	for _, file := range ruleFiles {
-		testFramework.AddLabelsToNamespace(framework.KubeClient, file.ns, ruleFilesNamespaceSelector)
+		err := testFramework.AddLabelsToNamespace(framework.KubeClient, file.ns, ruleFilesNamespaceSelector)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	for _, file := range ruleFiles {
@@ -661,6 +566,104 @@ func TestPrometheusMultipleRuleFilesDifferentNS(t *testing.T) {
 	}
 }
 
+func TestPrometheusRulesExceedingConfigMapLimit(t *testing.T) {
+	t.Parallel()
+
+	ctx := framework.NewTestCtx(t)
+	defer ctx.Cleanup(t)
+	ns := ctx.CreateNamespace(t, framework.KubeClient)
+	ctx.SetupPrometheusRBAC(t, ns, framework.KubeClient)
+
+	prometheusRules := []monitoringv1.PrometheusRule{}
+	for i := 0; i < 2; i++ {
+		rule := generateHugePrometheusRule(ns, strconv.Itoa(i))
+		err := framework.CreateRule(ns, rule)
+		if err != nil {
+			t.Fatal(err)
+		}
+		prometheusRules = append(prometheusRules, rule)
+	}
+
+	name := "test"
+
+	p := framework.MakeBasicPrometheus(ns, name, name, 1)
+	p.Spec.EvaluationInterval = "1s"
+	if err := framework.CreatePrometheusAndWaitUntilReady(ns, p); err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if t.Failed() {
+			if err := framework.PrintPodLogs(ns, "prometheus-"+p.Name+"-0"); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}()
+
+	pSVC := framework.MakePrometheusService(p.Name, "not-relevant", v1.ServiceTypeClusterIP)
+	if finalizerFn, err := testFramework.CreateServiceAndWaitUntilReady(framework.KubeClient, ns, pSVC); err != nil {
+		t.Fatal(errors.Wrap(err, "creating Prometheus service failed"))
+	} else {
+		ctx.AddFinalizerFn(finalizerFn)
+	}
+
+	for i := range prometheusRules {
+		_, err := framework.WaitForConfigMapExist(ns, "prometheus-"+p.Name+"-rulefiles-"+strconv.Itoa(i))
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	// Make sure both rule files ended up in the Prometheus Pod
+	for i := range prometheusRules {
+		err := framework.WaitForPrometheusFiringAlert(ns, pSVC.Name, "my-alert-"+strconv.Itoa(i))
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	err := framework.DeleteRule(ns, prometheusRules[1].Name)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = framework.WaitForConfigMapExist(ns, "prometheus-"+p.Name+"-rulefiles-0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = framework.WaitForConfigMapNotExist(ns, "prometheus-"+p.Name+"-rulefiles-1")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = framework.WaitForPrometheusFiringAlert(ns, pSVC.Name, "my-alert-0")
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+// generateHugePrometheusRule returns a Prometheus rule instance that would fill
+// more than half of the space of a Kubernetes ConfigMap.
+func generateHugePrometheusRule(ns, identifier string) monitoringv1.PrometheusRule {
+	alertName := "my-alert"
+	groups := []monitoringv1.RuleGroup{
+		{
+			Name:  alertName,
+			Rules: []monitoringv1.Rule{},
+		},
+	}
+	// One rule marshaled as yaml is ~34 bytes long, the max is ~524288 bytes.
+	for i := 0; i < 12000; i++ {
+		groups[0].Rules = append(groups[0].Rules, monitoringv1.Rule{
+			Alert: alertName + "-" + identifier,
+			Expr:  "vector(1)",
+		})
+	}
+	rule := framework.MakeBasicRule(ns, "prometheus-rule-"+identifier, groups)
+
+	return rule
+}
+
 // Make sure the Prometheus operator only updates the Prometheus config secret
 // and the Prometheus rules configmap on relevant changes
 func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
@@ -687,7 +690,7 @@ func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
 		MaxExpectedChanges int
 	}{
 		{
-			Name: "crd",
+			Name: "prometheus",
 			Getter: func(prometheusName string) (versionedResource, error) {
 				return framework.
 					MonClientV1.
@@ -703,9 +706,12 @@ func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
 					KubeClient.
 					CoreV1().
 					ConfigMaps(ns).
-					Get("prometheus-"+prometheusName+"-rulefiles", metav1.GetOptions{})
+					Get("prometheus-"+prometheusName+"-rulefiles-0", metav1.GetOptions{})
 			},
-			MaxExpectedChanges: 1,
+			// The Prometheus Operator first creates the ConfigMap for the
+			// given Prometheus stateful set and then updates it with the matching
+			// Prometheus rules.
+			MaxExpectedChanges: 2,
 		},
 		{
 			Name: "configurationSecret",
@@ -716,7 +722,7 @@ func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
 					Secrets(ns).
 					Get("prometheus-"+prometheusName, metav1.GetOptions{})
 			},
-			MaxExpectedChanges: 1,
+			MaxExpectedChanges: 2,
 		},
 		{
 			Name: "statefulset",
@@ -732,13 +738,23 @@ func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
 			MaxExpectedChanges: 3,
 		},
 		{
-			Name: "service",
+			Name: "service-operated",
 			Getter: func(prometheusName string) (versionedResource, error) {
 				return framework.
 					KubeClient.
 					CoreV1().
 					Services(ns).
 					Get("prometheus-operated", metav1.GetOptions{})
+			},
+			MaxExpectedChanges: 1,
+		},
+		{
+			Name: "serviceMonitor",
+			Getter: func(prometheusName string) (versionedResource, error) {
+				return framework.
+					MonClientV1.
+					ServiceMonitors(ns).
+					Get(prometheusName, metav1.GetOptions{})
 			},
 			MaxExpectedChanges: 1,
 		},
@@ -773,8 +789,35 @@ func TestPrometheusOnlyUpdatedOnRelevantChanges(t *testing.T) {
 		}
 	}()
 
+	alertName := "my-alert"
+	if _, err := framework.MakeAndCreateFiringRule(ns, "my-prometheus-rule", alertName); err != nil {
+		t.Fatal(err)
+	}
+
 	if err := framework.CreatePrometheusAndWaitUntilReady(ns, prometheus); err != nil {
 		t.Fatal(err)
+	}
+
+	pSVC := framework.MakePrometheusService(prometheus.Name, name, v1.ServiceTypeClusterIP)
+	if finalizerFn, err := testFramework.CreateServiceAndWaitUntilReady(framework.KubeClient, ns, pSVC); err != nil {
+		t.Fatal(errors.Wrap(err, "creating Prometheus service failed"))
+	} else {
+		testCTX.AddFinalizerFn(finalizerFn)
+	}
+
+	s := framework.MakeBasicServiceMonitor(name)
+	if _, err := framework.MonClientV1.ServiceMonitors(ns).Create(s); err != nil {
+		t.Fatal("Creating ServiceMonitor failed: ", err)
+	}
+
+	err := framework.WaitForPrometheusFiringAlert(prometheus.Namespace, pSVC.Name, alertName)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = isDiscoveryWorking(ns, pSVC.Name, prometheus.Name)
+	if err != nil {
+		t.Fatal(errors.Wrap(err, "validating Prometheus target discovery failed"))
 	}
 
 	if err := framework.DeletePrometheusAndWaitUntilGone(ns, name); err != nil {
@@ -820,7 +863,7 @@ func TestPrometheusWhenDeleteCRDCleanUpViaOwnerReference(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	configMapName := fmt.Sprintf("prometheus-%v-rulefiles", p.Name)
+	configMapName := fmt.Sprintf("prometheus-%v-rulefiles-0", p.Name)
 
 	_, err := framework.WaitForConfigMapExist(ns, configMapName)
 	if err != nil {
@@ -872,7 +915,7 @@ func TestPrometheusDiscovery(t *testing.T) {
 		t.Fatal("Generated Secret could not be retrieved: ", err)
 	}
 
-	err = wait.Poll(time.Second, 18*time.Minute, isDiscoveryWorking(ns, svc.Name, prometheusName))
+	err = isDiscoveryWorking(ns, svc.Name, prometheusName)
 	if err != nil {
 		t.Fatal(errors.Wrap(err, "validating Prometheus target discovery failed"))
 	}
@@ -982,7 +1025,7 @@ func TestPrometheusDiscoverTargetPort(t *testing.T) {
 				},
 			},
 			Endpoints: []monitoringv1.Endpoint{
-				monitoringv1.Endpoint{
+				{
 					TargetPort: intstr.FromInt(9090),
 					Interval:   "30s",
 				},
@@ -1008,7 +1051,7 @@ func TestPrometheusDiscoverTargetPort(t *testing.T) {
 		t.Fatal("Generated Secret could not be retrieved: ", err)
 	}
 
-	err = wait.Poll(time.Second, 3*time.Minute, isDiscoveryWorking(ns, svc.Name, prometheusName))
+	err = isDiscoveryWorking(ns, svc.Name, prometheusName)
 	if err != nil {
 		t.Fatal(errors.Wrap(err, "validating Prometheus target discovery failed"))
 	}
@@ -1171,11 +1214,116 @@ func TestThanos(t *testing.T) {
 	}
 }
 
-func isDiscoveryWorking(ns, svcName, prometheusName string) func() (bool, error) {
-	return func() (bool, error) {
-		pods, err := framework.KubeClient.CoreV1().Pods(ns).List(prometheus.ListOptions(prometheusName))
-		if err != nil {
-			return false, err
+func TestPrometheusGetBasicAuthSecret(t *testing.T) {
+	t.Parallel()
+
+	ctx := framework.NewTestCtx(t)
+	defer ctx.Cleanup(t)
+	ns := ctx.CreateNamespace(t, framework.KubeClient)
+	ctx.SetupPrometheusRBACGlobal(t, ns, framework.KubeClient)
+
+	name := "test"
+
+	maptest := make(map[string]string)
+	maptest["tc"] = ns
+	prometheusCRD := framework.MakeBasicPrometheus(ns, name, name, 1)
+	prometheusCRD.Spec.ServiceMonitorNamespaceSelector = &metav1.LabelSelector{
+		MatchLabels: maptest,
+	}
+
+	if err := framework.CreatePrometheusAndWaitUntilReady(ns, prometheusCRD); err != nil {
+		t.Fatal(err)
+	}
+	testNamespace := ctx.CreateNamespace(t, framework.KubeClient)
+
+	err := testFramework.AddLabelsToNamespace(framework.KubeClient, testNamespace, maptest)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	simple, err := testFramework.MakeDeployment("../../test/framework/ressources/basic-auth-app-deployment.yaml")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := testFramework.CreateDeployment(framework.KubeClient, testNamespace, simple); err != nil {
+		t.Fatal("Creating simple basic auth app failed: ", err)
+	}
+
+	authSecret := &v1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: name,
+		},
+		Data: map[string][]byte{
+			"user":     []byte("user"),
+			"password": []byte("pass"),
+		},
+	}
+
+	if _, err := framework.KubeClient.CoreV1().Secrets(testNamespace).Create(authSecret); err != nil {
+		t.Fatal(err)
+	}
+
+	svc := &v1.Service{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: name,
+			Labels: map[string]string{
+				"group": name,
+			},
+		},
+		Spec: v1.ServiceSpec{
+			Type: v1.ServiceTypeLoadBalancer,
+			Ports: []v1.ServicePort{
+				v1.ServicePort{
+					Name: "web",
+					Port: 8080,
+				},
+			},
+			Selector: map[string]string{
+				"group": name,
+			},
+		},
+	}
+
+	sm := framework.MakeBasicServiceMonitor(name)
+	sm.Spec.Endpoints[0].BasicAuth = &monitoringv1.BasicAuth{
+		Username: v1.SecretKeySelector{
+			LocalObjectReference: v1.LocalObjectReference{
+				Name: name,
+			},
+			Key: "user",
+		},
+		Password: v1.SecretKeySelector{
+			LocalObjectReference: v1.LocalObjectReference{
+				Name: name,
+			},
+			Key: "password",
+		},
+	}
+
+	if finalizerFn, err := testFramework.CreateServiceAndWaitUntilReady(framework.KubeClient, testNamespace, svc); err != nil {
+		t.Fatal(err)
+	} else {
+		ctx.AddFinalizerFn(finalizerFn)
+	}
+
+	if _, err := framework.MonClientV1.ServiceMonitors(testNamespace).Create(sm); err != nil {
+		t.Fatal("Creating ServiceMonitor failed: ", err)
+	}
+
+	if err := framework.WaitForTargets(ns, "prometheus-operated", 1); err != nil {
+		t.Fatal(err)
+	}
+
+}
+
+func isDiscoveryWorking(ns, svcName, prometheusName string) error {
+	var loopErr error
+
+	err := wait.Poll(time.Second, 5*framework.DefaultTimeout, func() (bool, error) {
+		pods, loopErr := framework.KubeClient.CoreV1().Pods(ns).List(prometheus.ListOptions(prometheusName))
+		if loopErr != nil {
+			return false, loopErr
 		}
 		if 1 != len(pods.Items) {
 			return false, nil
@@ -1183,25 +1331,31 @@ func isDiscoveryWorking(ns, svcName, prometheusName string) func() (bool, error)
 		podIP := pods.Items[0].Status.PodIP
 		expectedTargets := []string{fmt.Sprintf("http://%s:9090/metrics", podIP)}
 
-		activeTargets, err := framework.GetActiveTargets(ns, svcName)
-		if err != nil {
-			return false, err
+		activeTargets, loopErr := framework.GetActiveTargets(ns, svcName)
+		if loopErr != nil {
+			return false, loopErr
 		}
 
-		if !assertExpectedTargets(activeTargets, expectedTargets) {
+		if loopErr = assertExpectedTargets(activeTargets, expectedTargets); loopErr != nil {
 			return false, nil
 		}
 
-		working, err := basicQueryWorking(ns, svcName)
-		if err != nil {
-			return false, err
+		working, loopErr := basicQueryWorking(ns, svcName)
+		if loopErr != nil {
+			return false, loopErr
 		}
 		if !working {
 			return false, nil
 		}
 
 		return true, nil
+	})
+
+	if err != nil {
+		return fmt.Errorf("waiting for Prometheus to discover targets failed: %v: %v", err, loopErr)
 	}
+
+	return nil
 }
 
 type resultVector struct {
@@ -1270,9 +1424,7 @@ func isAlertmanagerDiscoveryWorking(ns, promSVCName, alertmanagerName string) fu
 	}
 }
 
-func assertExpectedTargets(targets []*testFramework.Target, expectedTargets []string) bool {
-	log.Printf("Expected Targets: %#+v\n", expectedTargets)
-
+func assertExpectedTargets(targets []*testFramework.Target, expectedTargets []string) error {
 	existingTargets := []string{}
 
 	for _, t := range targets {
@@ -1283,11 +1435,13 @@ func assertExpectedTargets(targets []*testFramework.Target, expectedTargets []st
 	sort.Strings(existingTargets)
 
 	if !reflect.DeepEqual(expectedTargets, existingTargets) {
-		log.Printf("Existing Targets: %#+v\n", existingTargets)
-		return false
+		return fmt.Errorf(
+			"expected targets %q but got %q", strings.Join(expectedTargets, ","),
+			strings.Join(existingTargets, ","),
+		)
 	}
 
-	return true
+	return nil
 }
 
 func assertExpectedAlertmanagerTargets(ams []*alertmanagerTarget, expectedTargets []string) bool {
