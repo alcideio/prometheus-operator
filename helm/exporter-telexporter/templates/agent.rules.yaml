@@ -1,5 +1,4 @@
 {{ define "agent.rules.yaml.tpl" }}
-groups:
 - name: agent.rules
   rules:
 

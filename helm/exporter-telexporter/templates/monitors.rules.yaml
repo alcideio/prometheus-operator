@@ -1,5 +1,4 @@
 {{ define "monitors.rules.yaml.tpl" }}
-groups:
 - name: kubemon.rules
   rules:
 

@@ -1,5 +1,4 @@
 {{ define "alcide-infra.rules.yaml.tpl" }}
-groups:
 - name: alcide-infra.rules
   rules:
   - alert: AlcidePodRestart

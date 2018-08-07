@@ -9,12 +9,9 @@ metadata:
     release: {{ .Release.Name }}
     role: alert-rules
   name: {{ template "exporter-telexporter.fullname" . }}
-data:
-  agent.rules: |-
-    {{- include "agent.rules.yaml.tpl" . | indent 4}}
-  alcide-infra.rules: |-
-    {{- include "alcide-infra.rules.yaml.tpl" . | indent 4}}
-  monitors.rules: |-
-    {{- include "monitors.rules.yaml.tpl" . | indent 4}}
-  server.rules: |-
-    {{- include "server.rules.yaml.tpl" . | indent 4}}
+spec:
+  groups:
+  {{- include "agent.rules.yaml.tpl" . | indent 2}}
+  {{- include "alcide-infra.rules.yaml.tpl" . | indent 2}}
+  {{- include "monitors.rules.yaml.tpl" . | indent 2}}
+  {{- include "server.rules.yaml.tpl" . | indent 2}}

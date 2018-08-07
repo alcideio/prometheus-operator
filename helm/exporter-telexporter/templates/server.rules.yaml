@@ -1,5 +1,4 @@
 {{ define "server.rules.yaml.tpl" }}
-groups:
 - name: server.rules
   rules:
 
