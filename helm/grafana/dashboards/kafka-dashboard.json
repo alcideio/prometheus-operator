@@ -29,7 +29,7 @@
     "gnetId": 721,
     "graphTooltip": 0,
     "id": null,
-    "iteration": 1523960848063,
+    "iteration": 1537971403413,
     "links": [],
     "panels": [
       {
@@ -54,6 +54,8 @@
         "legend": {
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "show": true,
@@ -90,7 +92,7 @@
         "tooltip": {
           "msResolution": false,
           "shared": true,
-          "sort": 0,
+          "sort": 2,
           "value_type": "cumulative"
         },
         "type": "graph",
@@ -107,7 +109,7 @@
             "label": "Cores",
             "logBase": 1,
             "max": null,
-            "min": null,
+            "min": "0",
             "show": true
           },
           {
@@ -142,6 +144,8 @@
         "legend": {
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "show": true,
@@ -178,7 +182,7 @@
         "tooltip": {
           "msResolution": false,
           "shared": true,
-          "sort": 0,
+          "sort": 2,
           "value_type": "cumulative"
         },
         "type": "graph",
@@ -230,6 +234,8 @@
         "legend": {
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "show": true,
@@ -266,7 +272,7 @@
         "tooltip": {
           "msResolution": false,
           "shared": true,
-          "sort": 0,
+          "sort": 2,
           "value_type": "cumulative"
         },
         "type": "graph",
@@ -572,6 +578,8 @@
         "legend": {
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "show": true,
@@ -595,6 +603,7 @@
             "expr": "kubelet_volume_stats_used_bytes{persistentvolumeclaim=~\".*$kafka_index.*\"}",
             "format": "time_series",
             "intervalFactor": 1,
+            "legendFormat": "{{namespace}}:{{persistentvolumeclaim}}",
             "refId": "A"
           }
         ],
@@ -604,7 +613,7 @@
         "title": "Kafka Disk Usage",
         "tooltip": {
           "shared": true,
-          "sort": 0,
+          "sort": 2,
           "value_type": "individual"
         },
         "type": "graph",
@@ -649,436 +658,6 @@
           "w": 8,
           "x": 8,
           "y": 14
-        },
-        "id": 9,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "netactivityLag",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "Lag",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 1,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 16,
-          "y": 14
-        },
-        "id": 13,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "irate(kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}[5m])",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "netactivity-lag-rate",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "Lag",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 1,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 0,
-          "y": 22
-        },
-        "id": 11,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "inventoryLag",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "Lag",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 1,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 8,
-          "y": 22
-        },
-        "id": 12,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "irate(kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}[5m])",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "inventory-lag-rate",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "Lag",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 1,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 16,
-          "y": 22
-        },
-        "id": 10,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "kafka_consumergroup_lag{topic=\"components-activity\",consumergroup!~\".*e2e*.\"}",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "componentsActivityLag",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "Lag",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 1,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 0,
-          "y": 30
         },
         "id": 15,
         "legend": {
@@ -1163,8 +742,8 @@
         "gridPos": {
           "h": 8,
           "w": 8,
-          "x": 8,
-          "y": 30
+          "x": 16,
+          "y": 14
         },
         "id": 16,
         "legend": {
@@ -1249,8 +828,624 @@
         "gridPos": {
           "h": 8,
           "w": 8,
+          "x": 0,
+          "y": 22
+        },
+        "id": 9,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "net activity lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 22
+        },
+        "id": 10,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"components-activity\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "components activity lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 22
+        },
+        "id": 19,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"security-features\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "security features lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 30
+        },
+        "id": 11,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "inventory lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 30
+        },
+        "id": 21,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"alert\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "alert lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
           "x": 16,
           "y": 30
+        },
+        "id": 20,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "kafka_consumergroup_lag{topic=\"metrics\",consumergroup!~\".*e2e.*\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "metrics lag",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 38
+        },
+        "id": 13,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "irate(kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}[5m])",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "netactivity lag-rate",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 38
         },
         "id": 14,
         "legend": {
@@ -1288,7 +1483,93 @@
         "thresholds": [],
         "timeFrom": null,
         "timeShift": null,
-        "title": "components-activity-lag-rate",
+        "title": "components-activity lag-rate",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 0,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Lag",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 38
+        },
+        "id": 12,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "irate(kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}[5m])",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "inventory lag-rate",
         "tooltip": {
           "msResolution": false,
           "shared": true,
@@ -1336,98 +1617,14 @@
           "h": 8,
           "w": 8,
           "x": 0,
-          "y": 38
-        },
-        "id": 17,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": true,
-        "targets": [
-          {
-            "expr": "kafka_cluster_partition_insyncreplicascount{topic!~\"__consumer_offsets\"}",
-            "format": "time_series",
-            "intervalFactor": 2,
-            "legendFormat": "{{topic}}:{{partition}}",
-            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
-            "refId": "A",
-            "step": 10
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "InSyncReplicaCount",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": "BrokerCount",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ]
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "${DS_PROMETHEUS}",
-        "editable": true,
-        "error": false,
-        "fill": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 8,
-          "y": 38
+          "y": 46
         },
         "id": 18,
         "legend": {
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "show": true,
@@ -1479,6 +1676,94 @@
           {
             "format": "short",
             "label": "OutOfISR",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
+        "editable": true,
+        "error": false,
+        "fill": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 46
+        },
+        "id": 17,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": true,
+        "targets": [
+          {
+            "expr": "kafka_cluster_partition_insyncreplicascount{topic!~\"__consumer_offsets\"}",
+            "format": "time_series",
+            "intervalFactor": 2,
+            "legendFormat": "{{topic}}:{{partition}}",
+            "metric": "kafka_server_brokertopicmetrics_bytesin_total",
+            "refId": "A",
+            "step": 10
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "InSyncReplicaCount",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "BrokerCount",
             "logBase": 1,
             "max": null,
             "min": null,
@@ -1559,7 +1844,7 @@
     "timezone": "browser",
     "title": "Kafka Overview",
     "uid": "nCAD-pRiz",
-    "version": 16
+    "version": 2
   },
   "inputs": [
     {

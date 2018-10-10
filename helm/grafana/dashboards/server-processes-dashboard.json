@@ -1478,14 +1478,14 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "{__name__=~\".+SecurityFeaturesProcessorImplCache.loads\"}",
+            "expr": "{__name__=~\".+SecurityFeaturesProcessorImplCache.loads\", type=\"count\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{source}} loads",
             "refId": "A"
           },
           {
-            "expr": "{__name__=~\".+SecurityFeaturesProcessorImplCache.evictions\"}",
+            "expr": "{__name__=~\".+SecurityFeaturesProcessorImplCache.evictions\", type=\"count\"}",
             "format": "time_series",
             "intervalFactor": 1,
             "legendFormat": "{{source}} evictions",
@@ -3444,7 +3444,7 @@
     "timezone": "",
     "title": "Server Processes",
     "uid": "ukmZSQRik",
-    "version": 6
+    "version": 2
   },
   "inputs": [
     {
