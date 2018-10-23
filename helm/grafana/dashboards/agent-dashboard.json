@@ -370,10 +370,10 @@
         "decimals": 0,
         "fill": 1,
         "gridPos": {
-          "h": 11,
-          "w": 16,
-          "x": 8,
-          "y": 19
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 30
         },
         "id": 6,
         "legend": {
@@ -455,10 +455,10 @@
         "decimals": 0,
         "fill": 1,
         "gridPos": {
-          "h": 11,
-          "w": 8,
+          "h": 8,
+          "w": 10,
           "x": 0,
-          "y": 30
+          "y": 39
         },
         "id": 1,
         "legend": {
@@ -535,13 +535,93 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "${DS_PROMETHEUS}",
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 14,
+          "x": 10,
+          "y": 39
+        },
+        "id": 12,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "{__name__=~\".*empty_producer_ip_occasions_count\"}",
+            "format": "time_series",
+            "hide": false,
+            "intervalFactor": 1,
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Empty Producer IP",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_PROMETHEUS}",
         "decimals": 0,
         "fill": 1,
         "gridPos": {
           "h": 11,
-          "w": 8,
+          "w": 10,
           "x": 0,
-          "y": 41
+          "y": 47
         },
         "id": 8,
         "legend": {
@@ -656,7 +736,7 @@
     "timezone": "",
     "title": "Agents",
     "uid": "fZX7ARziz",
-    "version": 4
+    "version": 3
   },
   "inputs": [
     {

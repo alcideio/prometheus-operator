@@ -12,6 +12,16 @@
         times within the last 5 minutes
 
   - alert: AgentDaemonTraceAttachmentErrorCount
+    expr: 'increase({__name__=~".*empty_producer_ip_occasions_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} has {{`{{ $value }}`}} empty producer ip occasions"
+      summary: Agent empty producer IP error
+      env: "{{`{{ $labels.environment }}`}}"
+
+  - alert: AgentDaemonTraceAttachmentErrorCount
     expr: 'increase({__name__=~".*_agent_agent_daemon_trace_attachment_error_count"}[5m]) > 0'
     labels:
       severity: error
