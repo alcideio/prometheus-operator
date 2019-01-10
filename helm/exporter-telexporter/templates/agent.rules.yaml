@@ -22,624 +22,624 @@
       env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonAttachmentConsoleError
-      expr: 'increase({__name__=~".*_agent_daemon_trace_attachment_error_count"}[5m]) > 0'
-      labels:
-        severity: error
-        component: agent
-      annotations:
-        description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-        summary: Agent daemon attachment console error
-        env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_attachment_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon attachment console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonDockerEngineCliConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_cli_docker_engine_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon docker engine cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_cli_docker_engine_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon docker engine cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonCliConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_cli_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_cli_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonReputationCliConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_cli_reputation_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon reputation cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_cli_reputation_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon reputation cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonServiceCacheCliConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_cli_servicecahche_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon service cache cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_cli_servicecahche_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon service cache cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonTopologyCliConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_cli_topology_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon topology cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_cli_topology_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon topology cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonConciergeClientConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_conciergeclient_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon concierge client console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_conciergeclient_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon concierge client console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonConfigConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_config_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon config console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_config_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon config console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonDefaultConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_default_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon default console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_default_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon default console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonDumpActivityConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_dump_activity_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon dump activity console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_dump_activity_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon dump activity console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonDumpAlertsConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_dump_alerts_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon dump alerts console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_dump_alerts_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon dump alerts console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonDumpSecfeaturesConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_dump_secfeatures_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon dump secfeatures console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_dump_secfeatures_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon dump secfeatures console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonEmbeddedPolicyConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_embedded_policy_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon embedded policy console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_embedded_policy_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon embedded policy console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonEventGroupConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_event_group_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon event group console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_event_group_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon event group console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonEventSinkAlcideConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_event_sink_alcide_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon event sink alcide console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_event_sink_alcide_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon event sink alcide console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonHistoryConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_history_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon history console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_history_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon history console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonInitConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_init_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon init console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_init_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon init console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogActivityConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_activity_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log activity console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_activity_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log activity console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogAlertConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_alert_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log alert console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_alert_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log alert console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogFirewallConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_firewall_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log firewall console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_firewall_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log firewall console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogSecalertConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_secalert_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log secalert console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_secalert_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log secalert console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogSecfeaturesConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_secfeatures_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log secfeatures console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_secfeatures_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log secfeatures console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonLogTelemetryConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_log_telemetry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon log telemetry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_log_telemetry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon log telemetry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonMsgbusConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_msgbus_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon msgbus console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_msgbus_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon msgbus console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonOtherConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_other_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon other console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_other_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon other console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonPolicyRegenerationRetryConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_policyRegenerationRetry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon policy regeneration retry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_policyRegenerationRetry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon policy regeneration retry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonPolicyCalculatorConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_policy_calculator_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon policy calculator console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_policy_calculator_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon policy calculator console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonPolicyConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_policy_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon policy console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_policy_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon policy console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonPolicyUtilsConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_policy_utils_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon policy utils console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_policy_utils_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon policy utils console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonReputationConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_reputation_daemon_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon reputation console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_reputation_daemon_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon reputation console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonTelemetryConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_telemetry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon telemetry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_telemetry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon telemetry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonTopologyRetryConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_topologyRetry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon topology retry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_topologyRetry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon topology retry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonWorkloadMonCacheConsoleError
-        expr: 'increase({__name__=~".*_agent_daemon_trace_workloadmon_cache_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent daemon workload mon cache console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_daemon_trace_workloadmon_cache_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent daemon workload mon cache console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneAlertConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_alert_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane alert console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_alert_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane alert console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneServiceCacheCliConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_cli_servicecahche_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane service cache cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_cli_servicecahche_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane service cache cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneTopologyCliConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_cli_topology_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane topology cli console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_cli_topology_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane topology cli console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneConfigConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_config_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane config console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_config_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane config console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneDefaultConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_default_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane default console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_default_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane default console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneDnsConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dns_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane dns console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dns_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane dns console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusAlertbusConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_alertbus_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus alertbus console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_alertbus_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus alertbus console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusCmdbusConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_cmdbus_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus cmdbus console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_cmdbus_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus cmdbus console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneDpMsgbusConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane dp msgbus console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane dp msgbus console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusGrpcConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_grpc_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus grpc console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_grpc_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus grpc console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusNetactivityConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_netactivity_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus netactivity console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_netactivity_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus netactivity console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusSecfeaturesConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_secfeatures_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus secfeatures console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_dp_msgbus_secfeatures_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus secfeatures console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneEmbeddedPolicyConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_embedded_policy_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane embedded policy console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_embedded_policy_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane embedded policy console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneEngineConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_engine_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane engine console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_engine_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane engine console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneHeartbeatConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_heartbeat_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane heartbeat console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_heartbeat_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane heartbeat console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneHistoryConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_history_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane history console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_history_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane history console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneIfmonConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_ifmon_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane ifmon console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_ifmon_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane ifmon console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneInitConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_init_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane init console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_init_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane init console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneMsgbusConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_msgbus_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane msgbus console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_msgbus_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane msgbus console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneNetactivityConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_netactivity_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane netactivity console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_netactivity_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane netactivity console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneNetactivityIpIssueConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_netactivity_ip_issue_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane netactivity ip issue console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_netactivity_ip_issue_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane netactivity ip issue console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneNethookConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_nethook_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane nethook console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_nethook_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane nethook console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneOtherConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_other_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane other console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_other_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane other console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplanePolicyConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_policy_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane policy console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_policy_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane policy console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneReputationConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_reputation_dp_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane reputation console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_reputation_dp_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane reputation console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneSecRegistryConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_sec_registry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane sec registry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_sec_registry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane sec registry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
-  - alert: AgentDataplaneSecfeaturesConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_secfeatures_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane secfeatures console error
-          env: "{{`{{ $labels.environment }}`}}"
+- alert: AgentDataplaneSecfeaturesConsoleError
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_secfeatures_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane secfeatures console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneTelemetryConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_telemetry_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane telemetry console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_telemetry_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane telemetry console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDataplaneTopologyConsoleError
-        expr: 'increase({__name__=~".*_agent_dataplane_trace_topology_error_count"}[5m]) > 0'
-        labels:
-          severity: error
-          component: agent
-        annotations:
-          description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-          summary: Agent dataplane topology console error
-          env: "{{`{{ $labels.environment }}`}}"
+    expr: 'increase({__name__=~".*_agent_dataplane_trace_topology_error_count"}[5m]) > 0'
+    labels:
+      severity: error
+      component: agent
+    annotations:
+      description: "Agent {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+      summary: Agent dataplane topology console error
+      env: "{{`{{ $labels.environment }}`}}"
 
   - alert: AgentDaemonTraceTopologyErrorCount
     expr: 'increase({__name__=~".*_agent_daemon_trace_topology_error_count"}[5m]) > 0'
