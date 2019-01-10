@@ -611,7 +611,7 @@
       summary: Agent dataplane sec registry console error
       env: "{{`{{ $labels.environment }}`}}"
 
-- alert: AgentDataplaneSecfeaturesConsoleError
+  - alert: AgentDataplaneSecfeaturesConsoleError
     expr: 'increase({__name__=~".*_agent_dataplane_trace_secfeatures_error_count"}[5m]) > 0'
     labels:
       severity: error
