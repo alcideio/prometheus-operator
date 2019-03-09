@@ -12,16 +12,6 @@
       summary: "Kubernetes monitor ({{`{{ $labels.environment }}`}}) console errors"
       env: "{{`{{ $labels.environment }}`}}"
 
-  - alert: AWSMonitorConsoleErrorTrend
-    expr: 'increase({source="AWSMonitor",__name__=~".*_trace_.*_error_count"}[5m]) > 0'
-    labels:
-      severity: error
-      component: monitor
-    annotations:
-      description: "AWSMonitor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has console errors ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
-      summary: "AWSMonitor monitor ({{`{{ $labels.environment }}`}}) console errors"
-      env: "{{`{{ $labels.environment }}`}}"
-
   - alert: cloudwatchdogMonitorApiErrorTrend
     expr: 'increase({source="cloudwatchdog",__name__=~".+cloudwatchdog_cloudprovider_.*_api_request_errors"}[5m]) > 0'
     labels:
