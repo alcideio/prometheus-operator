@@ -89,11 +89,23 @@ nodeSelector: {}
 ## Tolerations for use with node taints
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: {}
-  #  - key: "key"
-  #    operator: "Equal"
-  #    value: "value"
-  #    effect: "NoSchedule"
+tolerations:
+  - key: "ops-no-schedule"
+    operator: "Exists"
+    effect: "NoSchedule"
+  - key: "ops-no-execute"
+    operator: "Exists"
+    effect: "NoExecute"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: alcide/ops
+              operator: In
+              values:
+                - "true"
 
 
 ## If true, the Operator won't process any Prometheus configuration changes
