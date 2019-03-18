@@ -1,5 +1,5 @@
 {{ define "reputation.rules.yaml.tpl" }}
-- name: agent.rules
+- name: reputation.rules
   rules:
 
   - alert: ReputationFetcherFeedProcessingErrorLevel
